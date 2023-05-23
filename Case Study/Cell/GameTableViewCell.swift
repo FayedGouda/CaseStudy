@@ -15,8 +15,9 @@ class GameTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        if selected {
+            self.backgroundColor = .SelectedGameCell
+        }
     }
     
     /// Inject cell with a game model
@@ -24,10 +25,8 @@ class GameTableViewCell: UITableViewCell {
     func injectCell(with model:GameProtocol){
         self.name.text = model.name
         createAttributedString(for: model.metacritic)
-        
 //        if let imageURL = model.imageURL{
-//            let url = URL(string: imageURL)
-//            self.picture.kf.setImage(with: url)
+//            picture.downloadImage(from: imageUrl)
 //        }
         
         if let genres = model.genres, genres.count > 0{
@@ -37,8 +36,6 @@ class GameTableViewCell: UITableViewCell {
             let desc = genresList.joined(separator: ", ")
             self.details.text = desc
         }
-        
-        
     }
     
     /// Create attributed string of two parts, first is a title, second is the value
@@ -56,5 +53,4 @@ class GameTableViewCell: UITableViewCell {
         attributedString1.append(attributedString2)
         self.numberOfMetacritic.attributedText = attributedString1
     }
-    
 }

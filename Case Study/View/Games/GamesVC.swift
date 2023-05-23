@@ -71,7 +71,6 @@ class GamesVC: UIViewController {
             search.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             search.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             search.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
-//            search.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.055)
             search.heightAnchor.constraint(equalToConstant: 50)
         ])
         self.searchBar = search

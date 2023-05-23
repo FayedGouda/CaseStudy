@@ -30,7 +30,7 @@ class GameDetailsViewModel{
     }
     
     /// Get game details for current game
-    private func getGameDetails(){
+    func getGameDetails(){
         guard let id = game.id else { return }
         loading(true)
         apiService.details(id:id) { [weak self] result in
