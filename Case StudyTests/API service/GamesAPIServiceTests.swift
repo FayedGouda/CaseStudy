@@ -35,10 +35,6 @@ class GamesAPIServiceTests: XCTestCase {
             self?.testingError = error
         }
         
-        gameDetailsViewModel.empty = { [weak self] isEmpty in
-            self?.testingIsEmpty = isEmpty
-        }
-        
         gameDetailsViewModel.loadGameDetails = { [weak self] game in
             self?.testingMockedGameDetails = game
             
@@ -174,4 +170,6 @@ class GamesAPIServiceTests: XCTestCase {
         mockAPIService.mockFail(with: genratedError)
         XCTAssertEqual(genratedError.localizedDescription, testingError?.localizedDescription)
     }
+    
+    //MARK: - Game Details
 }

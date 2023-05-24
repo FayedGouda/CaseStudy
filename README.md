@@ -37,4 +37,4 @@
 ### I don't think app store will accept it as it needs at least to have five functionalities.
 
 # Do you have any comments to us?
-### No
+### I enjoyed working on this task very much as it covered alot of useful and interesting parts.

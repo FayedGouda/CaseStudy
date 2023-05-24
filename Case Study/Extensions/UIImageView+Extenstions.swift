@@ -2,8 +2,11 @@
 import UIKit
 
 extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
-        contentMode = mode
+    
+    /// Download image from remote service
+    /// - Parameter link: Direct link to your image
+    func downloadImage(from link: String) {
+        guard let url = URL(string: link) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -15,9 +18,5 @@ extension UIImageView {
                 self?.image = image
             }
         }.resume()
-    }
-    func downloadImage(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
     }
 }

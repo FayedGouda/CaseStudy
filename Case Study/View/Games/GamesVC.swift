@@ -118,7 +118,6 @@ extension GamesVC:UITableViewDelegate{
         favouriteAction.image = image
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [favouriteAction])
-        // Delete should not delete automatically
         swipeConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeConfiguration
@@ -162,7 +161,6 @@ extension GamesVC:UISearchBarDelegate{
                 return }
             viewModel.searchGames(for: searchText)
         }
-        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

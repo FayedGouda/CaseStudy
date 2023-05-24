@@ -2,7 +2,7 @@
 import UIKit
 
 protocol GamesCoordinatorProtocol:Coordinator{
-    
+    func gameDetails(for game:GameProtocol)
 }
 
 extension GamesCoordinatorProtocol{
