@@ -4,25 +4,32 @@ import Foundation
 /// This view model is responsible for getting game details, render data to its view controller
 class GameDetailsViewModel{
     
-    var reloadData: () -> Void = {}
-    
-    var loading: (Bool) -> Void = {_ in }
-    
-    var success: (Bool) -> Void = {_ in }
-    
-    var error: (Error) -> Void = {_ in }
-    
-    var empty: (Bool) -> Void = {_ in }
-    
-    private var redditURL:String?
-    
-    private var websiteURL:String?
-    
+    /// Call back closure to tell the view contrller to render game details to view
     var loadGameDetails:(GameDetails)->Void = { _ in }
     
+    /// Call back closure to tell the view contrller if its viewModel is doing work like api calls.
+    var loading: (Bool) -> Void = {_ in }
+        
+    /// Call back closure to tell the view contrller if some error occured
+    var error: (Error) -> Void = {_ in }
+    
+    /// Call back closure to tell the view contrller if its viewModel is doing work like api calls.
+    var success:(Bool)->Void = {_ in }
+    
+    /// Reddit url for the game
+    private var redditURL:String?
+    
+    /// Website url for the game
+    private var websiteURL:String?
+    
     private var game:GameProtocol
+    
     private var apiService:GamesAPIServiceProtocol
     
+    /// Using DI to inject our ViewModel with a game and GamesAPIServiceProtocol
+    /// - Parameters:
+    ///   - game: A game to work on.
+    ///   - apiService: Instance of type confirming to GamesAPIServiceProtocol
     init(game: GameProtocol, apiService:GamesAPIServiceProtocol) {
         self.game = game
         self.apiService = apiService

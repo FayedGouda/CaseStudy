@@ -15,6 +15,7 @@ public enum NetworkError: String, LocalizedError{
     case Unauthorized
     case InternalServerError
     
+    /// Description for an error
     public var errorDescription: String? {
         return self.rawValue
     }

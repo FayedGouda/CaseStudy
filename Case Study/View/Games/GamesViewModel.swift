@@ -10,6 +10,7 @@ protocol GamesViewModelProtocol:AnyObject{
     /// instance of a type confirming to GamesAPIServiceProtocol protocol
     var apiService:GamesAPIServiceProtocol { get }
     
+    /// List of games
     var games:[GameProtocol] { get set }
     
     /// Call back closure to tell the view contrller to reload its data
@@ -70,7 +71,23 @@ extension GamesViewModelProtocol{
         coordinator?.gameDetails(for: self.games[indexPath.row])
     }
     
+    /// Search for names matching of games, first search localy in the our loaded games, if no matches then we search online
+    /// - Parameter text: text to match with
     func searchGames(for text:String){
+        let offlineResult = self.offlineSearch(for: text)
+        
+        if offlineResult.count < 1  {
+            self.onlineSearch(for: text)
+        }else{
+            self.games = offlineResult
+            self.reloadData()
+        }
+
+    }
+    
+    /// Search online for a game with a name
+    /// - Parameter text: A name (or subnames) to search with
+    private func onlineSearch(for text:String){
         loading(true)
         let params:JSON = ["page_size":10, "page":1, "key":Config.API_Key, "search":text]
         apiService.search(params: params) { [weak self] result in
@@ -107,6 +124,8 @@ extension GamesViewModelProtocol{
         }
     }
     
+    /// Toggling a game to favourites list
+    /// - Parameter indexPath: The index of a game to be toggled
     func toggleFavouriteGame(at indexPath:IndexPath){
         let game = games[indexPath.row]
         LocalFavourites.shared.toggleFavourite(for: game as! Game) { [weak self] result in
@@ -122,6 +141,7 @@ extension GamesViewModelProtocol{
         }
     }
     
+    /// Load our favourite games, for now it gets data from client-side (UserDefaults)
     func getFavouriteGames(){
         loading(true)
         apiService.favourites { [weak self] result in
@@ -162,5 +182,24 @@ class GamesViewModel:GamesViewModelProtocol{
     
     required init(apiService: GamesAPIServiceProtocol) {
         self.apiService = apiService
+    }
+}
+
+extension GamesViewModelProtocol {
+    
+    ///Search localy in the our loaded games for matching games
+    /// - Parameter text: A text to match with
+    /// - Returns: A list of games founded or empty list if there is no matchs
+    private func offlineSearch(for text:String)->[GameProtocol]{
+        var founded:[GameProtocol] = []
+        for game in games{
+            guard let name = game.name else { continue }
+            if (name.range(of: text, options: .caseInsensitive) != nil){
+                founded.append(game)
+            }else{
+                continue
+            }
+        }
+        return founded
     }
 }

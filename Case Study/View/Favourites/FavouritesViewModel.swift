@@ -1,6 +1,7 @@
 
 import Foundation
 
+/// A view model resposible for favourite games, it confirms to GamesViewModelProtocol
 class FavouritesViewModel:GamesViewModelProtocol{
     
     var reloadData: () -> Void = {}
@@ -23,7 +24,4 @@ class FavouritesViewModel:GamesViewModelProtocol{
         self.apiService = apiService
         self.getFavouriteGames()
     }
-    
-
-    
 }

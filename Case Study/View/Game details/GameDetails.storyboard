@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -129,6 +130,10 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="nVn-55-5yI"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Hzz-zn-veN"/>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-fI-Squ">
+                                <rect key="frame" x="146.66666666666666" y="388.66666666666669" width="100" height="100"/>
+                                <color key="color" name="AccentColor"/>
+                            </activityIndicatorView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssv-hv-14O">
                                 <rect key="frame" x="46.666666666666657" y="413.66666666666669" width="300" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -141,17 +146,22 @@
                         <constraints>
                             <constraint firstItem="ssv-hv-14O" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.763359" id="0ck-a2-ycp"/>
                             <constraint firstItem="ssv-hv-14O" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.0586854" id="2EF-pu-DU2"/>
+                            <constraint firstItem="jhh-fI-Squ" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.254453" id="6iI-wP-j6W"/>
                             <constraint firstItem="hcc-AX-5Tc" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="PhU-s6-D7K"/>
                             <constraint firstItem="hcc-AX-5Tc" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="XOF-GK-xWB"/>
                             <constraint firstItem="hcc-AX-5Tc" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-10" id="bbd-SF-3aF"/>
                             <constraint firstItem="hcc-AX-5Tc" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="clr-h8-T7Q"/>
+                            <constraint firstItem="jhh-fI-Squ" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.117371" id="gya-yd-HMd"/>
+                            <constraint firstItem="jhh-fI-Squ" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="mu0-G7-pdR"/>
                             <constraint firstItem="ssv-hv-14O" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="pn7-Ma-Cbx"/>
                             <constraint firstItem="ssv-hv-14O" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="rBb-3d-MTX"/>
+                            <constraint firstItem="jhh-fI-Squ" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="x4Y-35-jjO"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="details" destination="J2T-Uu-5IB" id="McH-5k-OTq"/>
                         <outlet property="emptyErrorLabel" destination="ssv-hv-14O" id="R17-T2-tbk"/>
+                        <outlet property="indicator" destination="jhh-fI-Squ" id="AL3-HJ-PsO"/>
                         <outlet property="name" destination="BSI-LA-rkW" id="7cF-yh-I6W"/>
                         <outlet property="picture" destination="eTY-HT-bDZ" id="Afi-lK-pSj"/>
                         <outlet property="scrollView" destination="hcc-AX-5Tc" id="iXg-eT-gnC"/>
@@ -173,7 +183,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="placeholder" width="630" height="637"/>
+        <image name="placeholder" width="100" height="101"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

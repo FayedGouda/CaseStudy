@@ -43,6 +43,9 @@
 		34E3F3E22A1D28F8008E44F2 /* Test_Favourites_viewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E3F3E12A1D28F8008E44F2 /* Test_Favourites_viewModel.swift */; };
 		34E3F3E42A1D2929008E44F2 /* Test_Game_Details_viewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E3F3E32A1D2929008E44F2 /* Test_Game_Details_viewModel.swift */; };
 		34E3F3E52A1D4DC5008E44F2 /* UIColor+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9BF2A1BD8200002629D /* UIColor+Extenstions.swift */; };
+		34E9A2552A1E25440056B8AC /* Localjson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E9A2542A1E25440056B8AC /* Localjson.swift */; };
+		34E9A2592A1E29CE0056B8AC /* games.json in Resources */ = {isa = PBXBuildFile; fileRef = 34E9A2582A1E29CE0056B8AC /* games.json */; };
+		34E9A25B2A1E2B340056B8AC /* game_details.json in Resources */ = {isa = PBXBuildFile; fileRef = 34E9A25A2A1E2B340056B8AC /* game_details.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +98,9 @@
 		34E3F3DF2A1D28B1008E44F2 /* MockGameAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameAPIService.swift; sourceTree = "<group>"; };
 		34E3F3E12A1D28F8008E44F2 /* Test_Favourites_viewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_Favourites_viewModel.swift; sourceTree = "<group>"; };
 		34E3F3E32A1D2929008E44F2 /* Test_Game_Details_viewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_Game_Details_viewModel.swift; sourceTree = "<group>"; };
+		34E9A2542A1E25440056B8AC /* Localjson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localjson.swift; sourceTree = "<group>"; };
+		34E9A2582A1E29CE0056B8AC /* games.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = games.json; sourceTree = "<group>"; };
+		34E9A25A2A1E2B340056B8AC /* game_details.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = game_details.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +142,7 @@
 		340068372A1BBB64008911E2 /* Case Study */ = {
 			isa = PBXGroup;
 			children = (
+				34E9A2532A1E25360056B8AC /* Local test */,
 				34575DB02A1D039E0097ADF2 /* Error */,
 				3443E9D02A1C14DC0002629D /* Local Models */,
 				3443E9C72A1BDC9C0002629D /* Helper views */,
@@ -304,6 +311,16 @@
 			path = "Mock api service";
 			sourceTree = "<group>";
 		};
+		34E9A2532A1E25360056B8AC /* Local test */ = {
+			isa = PBXGroup;
+			children = (
+				34E9A25A2A1E2B340056B8AC /* game_details.json */,
+				34E9A2582A1E29CE0056B8AC /* games.json */,
+				34E9A2542A1E25440056B8AC /* Localjson.swift */,
+			);
+			path = "Local test";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -385,8 +402,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34E9A25B2A1E2B340056B8AC /* game_details.json in Resources */,
 				340068452A1BBB65008911E2 /* LaunchScreen.storyboard in Resources */,
 				3443E9D82A1C1E820002629D /* GameDetails.storyboard in Resources */,
+				34E9A2592A1E29CE0056B8AC /* games.json in Resources */,
 				340068422A1BBB65008911E2 /* Assets.xcassets in Resources */,
 				3443E9BA2A1BD51C0002629D /* GameTableViewCell.xib in Resources */,
 			);
@@ -411,6 +430,7 @@
 				3400686A2A1BBCAE008911E2 /* TabCoordinator.swift in Sources */,
 				3443E9C92A1BDCAF0002629D /* ActivityIndicator.swift in Sources */,
 				3443E9D42A1C1B7B0002629D /* AlertSheet.swift in Sources */,
+				34E9A2552A1E25440056B8AC /* Localjson.swift in Sources */,
 				3443E9B42A1BD39B0002629D /* Config.swift in Sources */,
 				340068392A1BBB64008911E2 /* AppDelegate.swift in Sources */,
 				3443E9A42A1BC2E60002629D /* GamesViewModel.swift in Sources */,

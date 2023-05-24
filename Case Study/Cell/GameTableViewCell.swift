@@ -17,6 +17,8 @@ class GameTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         if selected {
             self.backgroundColor = .SelectedGameCell
+        }else{
+            self.backgroundColor = .clear
         }
     }
     
@@ -25,9 +27,9 @@ class GameTableViewCell: UITableViewCell {
     func injectCell(with model:GameProtocol){
         self.name.text = model.name
         createAttributedString(for: model.metacritic)
-//        if let imageURL = model.imageURL{
-//            picture.downloadImage(from: imageUrl)
-//        }
+        if let imageURL = model.imageURL{
+//            self.picture.downloadImage(from: imageURL)
+        }
         
         if let genres = model.genres, genres.count > 0{
             let genresList = genres.compactMap {

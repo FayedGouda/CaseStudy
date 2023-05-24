@@ -125,13 +125,6 @@ class GamesAPIServiceTests: XCTestCase {
 
     }
     
-    //MARK: - Search for a game
-    func test_search_for_a_game_service_is_called(){
-        gamesViewModel.searchGames(for: "Theft")
-        XCTAssert(mockAPIService!.isSearchForAGameServiceGetCalled)
-    }
-
-    
     func test_search_for_a_game_service_is_success(){
         
         gamesViewModel.searchGames(for: "Theft")

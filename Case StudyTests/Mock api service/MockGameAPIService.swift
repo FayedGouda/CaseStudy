@@ -37,63 +37,27 @@ class MockGameAPIService:GamesAPIServiceProtocol{
     
     
     func mockSuccess()->MainResponse{
-        let jsonText = """
-        {
-            "results":
-            [
-                {
-                    "id": 3498,
-                    "name": "Grand Theft Auto V",
-                    "background_image": "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-                    "metacritic": 92,
-                    "genres": [
-                        {
-                            "name": "Action"
-                        },
-                        {
-                            "name": "Adventure"
-                        }
-                    ]
-                }
-            ]
-        }
-        """
-        let jsonData = jsonText.data(using: .utf8)!
-        let response = try! JSONDecoder().decode(MainResponse.self, from: jsonData)
-        
+        let response = LocalJSON.shared.loadGames()
         if let complitionClosure{
-            complitionClosure(.success(response))
+            complitionClosure(.success(response!))
         }
         
         if let complitionFavouriteGamesClosure{
-            if let games = response.games{
+            if let games = response!.games{
                 complitionFavouriteGamesClosure(.success(games))
             }
         }
-        
-        return response
+        return response!
     }
     
     func mockGameDetailsSuccess()->GameDetails{
-        
-        let jsonText = """
-        {
-            "id": 3498,
-            "name": "Grand Theft Auto V",
-            "website": "https://www.google.com/",
-            "reddit_url": "https://www.google.com/",
-            "description_raw":"This is a mock description for the game",
-            "background_image": "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg"
-        }
-        """
-        let jsonData = jsonText.data(using: .utf8)!
-        let response = try! JSONDecoder().decode(GameDetails.self, from: jsonData)
+        let response = LocalJSON.shared.loadGameDetails()
         
         if let complitionGameDetailsClosure{
-            complitionGameDetailsClosure(.success(response))
+            complitionGameDetailsClosure(.success(response!))
         }
         
-        return response
+        return response!
     }
     
     func mockSuccessWithEmptyList(){

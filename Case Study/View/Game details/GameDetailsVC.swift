@@ -8,15 +8,11 @@ class GameDetailsVC: UIViewController {
     @IBOutlet private weak var details: UILabel!
     @IBOutlet private weak var emptyErrorLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var indicator:UIActivityIndicatorView!
     private weak var toggleFavouriteButton:UIBarButtonItem!
-    private weak var indicator:UIActivityIndicatorView!
-
-    var viewModel:GameDetailsViewModel!
     
-    override func loadView() {
-        super.loadView()
-        indicator = addIndicatorToViewController()
-    }
+    var viewModel:GameDetailsViewModel!
+    private var favouriteState:FavouriteState = .notFavourite
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +21,25 @@ class GameDetailsVC: UIViewController {
         bindData()
     }
     
+    /// Handeling favourite states of current game (if it favouried, enable unfavourite and vice versa)
+    private enum FavouriteState:String{
+        case isFavourite = "Favorited"
+        case notFavourite = "Favorite"
+        
+        /// Toggling self rawValue to enable or disable toggleFavouriteButton
+        /// - Returns: Title for toggleFavouriteButton
+        mutating func toggleFavouriteButton()->String{
+            switch self{
+            case .isFavourite:
+                self = .notFavourite
+            case .notFavourite:
+                self = .isFavourite
+            }
+            return rawValue
+        }
+    }
+    
+    /// Bind this UIViewController to its ViewModel
     private func bindData(){
         
         viewModel.loading = { [weak self ] isLoading in
@@ -44,7 +59,16 @@ class GameDetailsVC: UIViewController {
             self?.details.text = details.description
             self?.setImage(for: details.imageURL)
         }
+        
+        viewModel.success = { [weak self ] isSuccess in
+            guard isSuccess else { return }
+            let title = self?.favouriteState.toggleFavouriteButton()
+            self?.toggleFavouriteButton.title = title
+            self?.toggleFavouriteButton.isEnabled = true
+        }
     }
+    
+    
     
     /// Set image using remote url
     /// - Parameter imageUrl: Image URL
@@ -53,30 +77,35 @@ class GameDetailsVC: UIViewController {
         picture.downloadImage(from: imageUrl)
     }
     
+    /// Set up some views
     private func setUpViews(){
-        var favouriteButtonTitle:String = ""
         if viewModel.isFavourite{
-            favouriteButtonTitle = "Favorited"
+            
+            favouriteState = .isFavourite
         }else{
-            favouriteButtonTitle = "Favorite"
+            favouriteState = .notFavourite
         }
-        let favouriteButton = UIBarButtonItem(title: favouriteButtonTitle, style: .plain, target: self, action: #selector(toggleFavourite))
+        let favouriteButton = UIBarButtonItem(title: favouriteState.rawValue, style: .plain, target: self, action: #selector(toggleFavourite))
         self.toggleFavouriteButton = favouriteButton
         self.navigationItem.setRightBarButton(favouriteButton, animated: false)
     }
     
     
+    /// When user taps Visit Reddit label
+    /// - Parameter sender: UITapGestureRecognizer
     @IBAction private func didTapVisitReddit(_ sender: Any) {
         viewModel.didTapOpenReddit()
     }
     
+    /// When user taps Visit Website label
+    /// - Parameter sender: UITapGestureRecognizer
     @IBAction private func didTapVisitWebsite(_ sender: Any) {
         viewModel.didTapOpenWebsite()
     }
     
+    /// If the game is in your favourites, the allow user to remove it from his favourites and vice versa
     @objc private func toggleFavourite(){
+        toggleFavouriteButton.isEnabled = false
         viewModel.toggleFavourite()
     }
 }
-
-extension GameDetailsVC:ActivityIndicatorProtocol { }

@@ -84,7 +84,7 @@ class GamesVC: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
-        
+        tableView.allowsMultipleSelection = true
         tableView.bounces = false
         self.games = tableView
         
@@ -97,6 +97,7 @@ class GamesVC: UIViewController {
 
 extension GamesVC:UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.games[indexPath.row].isSelected = true
         viewModel.didSelectRow(at: indexPath)
     }
     
@@ -142,6 +143,10 @@ extension GamesVC:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GameTableViewCell.identifier) as! GameTableViewCell
         let cellModel = self.viewModel.cellGame(for: indexPath)
+        if cellModel.isSelected{
+            cell.backgroundColor = .SelectedGameCell
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        }
         cell.injectCell(with: cellModel)
         cell.selectionStyle = .none
         return cell

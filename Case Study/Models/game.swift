@@ -15,9 +15,9 @@ struct MainResponse: Codable {
 // MARK: - Game
 struct Game: GameProtocol {
     
-    var isFavourite: Bool? = false
+    var isSelected: Bool = false
     
-    var description: String?
+    var isFavourite: Bool = false
     
     var id: Int?
     
@@ -34,7 +34,7 @@ struct Game: GameProtocol {
         case imageURL = "background_image"
         case metacritic
         case genres
-        case id, description, isFavourite
+        case id
     }
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -42,8 +42,6 @@ struct Game: GameProtocol {
         name = try values.decodeIfPresent(String.self, forKey: .name)
         imageURL = try values.decodeIfPresent(String.self, forKey: .imageURL)
         metacritic = try values.decodeIfPresent(Int.self, forKey: .metacritic)
-        description = try values.decodeIfPresent(String.self, forKey: .description)
-        isFavourite = try values.decodeIfPresent(Bool.self, forKey: .isFavourite)
         genres = try values.decodeIfPresent([Genre].self, forKey: .genres)
         
     }
@@ -64,18 +62,31 @@ protocol GameProtocol: Codable{
     var imageURL:String? { get }
     
     var metacritic:Int? { get }
-    
-    var description:String? { get set }
-    
+        
     var genres: [Genre]? { get set }
     
-    var isFavourite:Bool? { get set }
-        
+    var isFavourite:Bool { get set }
+    
+    var isSelected:Bool { get set }
+            
 }
-
-extension GameProtocol{
-    var isFavourite:Bool?{
-        return false
-    }
-
-}
+//
+//extension GameProtocol{
+//    var isFavourite:Bool?{
+//        get {
+//            return false
+//        }
+//        set {
+//            self.isFavourite = newValue
+//        }
+//    }
+//    var isSelected:Bool?{
+//        get {
+//            return false
+//        }
+//        set {
+//            self.isSelected = newValue
+//        }
+//    }
+//
+//}
