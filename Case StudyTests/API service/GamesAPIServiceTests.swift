@@ -125,7 +125,7 @@ class GamesAPIServiceTests: XCTestCase {
         
         gamesViewModel.searchGames(for: "Theft")
         let mockedResult = mockAPIService.mockSuccess()
-        let searchResult = gamesViewModel.games
+        let searchResult = gamesViewModel.gamesSearchResult
         if let id = searchResult[0].id{
             XCTAssertEqual(id, 3498)}
         if let mockedGames = mockedResult.games{
@@ -138,7 +138,7 @@ class GamesAPIServiceTests: XCTestCase {
         
         gamesViewModel.searchGames(for: "Theft")
         mockAPIService.mockSuccessWithEmptyList()
-        let searchResult = gamesViewModel.games
+        let searchResult = gamesViewModel.gamesSearchResult
         XCTAssertEqual(self.testingIsEmpty, true)
         XCTAssertEqual(searchResult.count, 0)
     }

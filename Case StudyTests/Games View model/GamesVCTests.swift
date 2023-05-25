@@ -31,7 +31,7 @@ class GamesVCTests: XCTestCase {
     func test_did_select_row_at_indexPath(){
         viewModel.getGames()
         _ = mockAPIService.mockSuccess()
-        let result = viewController.tableView(tableView, cellForRowAt: indexPath) as! GameTableViewCell
+        _ = viewController.tableView(tableView, cellForRowAt: indexPath) as! GameTableViewCell
         viewController.tableView(tableView, didSelectRowAt: indexPath)
         let selectedModel = viewModel.games[indexPath.row]
         XCTAssertEqual(selectedModel.isSelected, true)

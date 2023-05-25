@@ -13,6 +13,9 @@ protocol GamesViewModelProtocol:AnyObject{
     /// List of games
     var games:[GameProtocol] { get set }
     
+    /// List of games
+    var gamesSearchResult:[GameProtocol] { get set }
+    
     /// Call back closure to tell the view contrller to reload its data
     var reloadData:()->Void { get set }
     
@@ -27,6 +30,10 @@ protocol GamesViewModelProtocol:AnyObject{
     
     /// Call back closure to tell the view contrller if no data provided
     var empty:(Bool)->Void { get set }
+    
+    var paginationisAllowed:Bool { get set }
+    
+    var currentPageNumber:Int { get set }
     
     /// Inject confirming type with instance of a type confirming to GamesAPIServiceProtocol protocol
     /// - Parameter apiService: instance of a type confirming to GamesAPIServiceProtocol protocol
@@ -60,10 +67,16 @@ protocol GamesViewModelProtocol:AnyObject{
 extension GamesViewModelProtocol{
     
     func numberOfRows()->Int{
+        if paginationisAllowed{
+            return gamesSearchResult.count
+        }
         return self.games.count
     }
     
     func cellGame(for indexPath:IndexPath)->GameProtocol{
+        if paginationisAllowed{
+            return gamesSearchResult[indexPath.row]
+        }
         return self.games[indexPath.row]
     }
     
@@ -75,11 +88,10 @@ extension GamesViewModelProtocol{
     /// - Parameter text: text to match with
     func searchGames(for text:String){
         let offlineResult = self.offlineSearch(for: text)
-        
         if offlineResult.count < 1  {
             self.onlineSearch(for: text)
         }else{
-            self.games = offlineResult
+            self.gamesSearchResult = offlineResult
             self.reloadData()
         }
 
@@ -89,7 +101,7 @@ extension GamesViewModelProtocol{
     /// - Parameter text: A name (or subnames) to search with
     private func onlineSearch(for text:String){
         loading(true)
-        let params:JSON = ["page_size":10, "page":1, "key":Config.API_Key, "search":text]
+        let params:JSON = ["page_size":10, "page":self.currentPageNumber, "key":Config.API_Key, "search":text]
         apiService.search(params: params) { [weak self] result in
             self?.loading(false)
             switch result{
@@ -98,7 +110,7 @@ extension GamesViewModelProtocol{
                     self?.empty(true)
                     return
                 }
-                self?.games = reuslts
+                self?.gamesSearchResult += reuslts
                 self?.reloadData()
             case .failure(let error):
                 self?.error(error)
@@ -112,11 +124,17 @@ extension GamesViewModelProtocol{
             self?.loading(false)
             switch result{
             case .success(let games):
-                guard let reuslts = games.games, reuslts.count > 0 else {
+                guard var results = games.games, results.count > 0 else {
                     self?.empty(true)
                     return
                 }
-                self?.games = reuslts
+                //Here we check if fetched games are favorites or not
+                //Of course its not the best soluations, this is done as favourite games are stored client-side
+                //It would be easy if a game has a property isFavourite to
+                for count in 0...results.count - 1{
+                    results[count].isFavourite = LocalFavourites.shared.search(for: results[count]).0
+                }
+                self?.games = results
                 self?.reloadData()
             case .failure(let error):
                 self?.error(error)
@@ -128,12 +146,14 @@ extension GamesViewModelProtocol{
     /// - Parameter indexPath: The index of a game to be toggled
     func toggleFavouriteGame(at indexPath:IndexPath){
         let game = games[indexPath.row]
+        let isFavourites = game.isFavourite
         LocalFavourites.shared.toggleFavourite(for: game as! Game) { [weak self] result in
             switch result{
             case .success(let success):
                 guard success else {
                     return
                 }
+                self?.games[indexPath.row].isFavourite = !isFavourites
                 self?.success(true)
             case .failure(let error):
                 self?.error(error)
@@ -152,6 +172,7 @@ extension GamesViewModelProtocol{
                     self?.empty(true)
                     return
                 }
+                self?.empty(false)
                 self?.games = games
                 self?.reloadData()
             case .failure(let error):
@@ -164,6 +185,8 @@ extension GamesViewModelProtocol{
 
 class GamesViewModel:GamesViewModelProtocol{
     
+    var gamesSearchResult = [GameProtocol]()
+    
     var reloadData: () -> Void = {}
     
     var loading: (Bool) -> Void = {_ in }
@@ -173,6 +196,10 @@ class GamesViewModel:GamesViewModelProtocol{
     var error: (Error) -> Void = {_ in }
     
     var empty: (Bool) -> Void = {_ in }
+    
+    var paginationisAllowed:Bool = false
+    
+    var currentPageNumber:Int = 1
     
     weak var coordinator: GamesCoordinatorProtocol?
     

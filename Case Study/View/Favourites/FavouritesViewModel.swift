@@ -4,6 +4,12 @@ import Foundation
 /// A view model resposible for favourite games, it confirms to GamesViewModelProtocol
 class FavouritesViewModel:GamesViewModelProtocol{
     
+    var gamesSearchResult = [GameProtocol]()
+    
+    var currentPageNumber: Int = 1
+    
+    var paginationisAllowed: Bool = false
+    
     var reloadData: () -> Void = {}
     
     var loading: (Bool) -> Void = {_ in }

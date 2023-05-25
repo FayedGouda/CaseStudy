@@ -39,15 +39,17 @@ class DeleteHelper{
 }
 
 struct AlertView {
-    public static func showAlertBox(title: String, message: String) -> UIAlertController {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
-        return alert
-    }
-}
+    public static func showBasicAlert(on vc: UIViewController, with title: String, message: String, action: @escaping (() -> ())){
 
-extension UIViewController{
-    public func showMessage(title:String = "Information", message:String){
-        AlertView.showAlertBox(title: title, message: message).present(self, animated: true) {}
-    }
+       let alert =  UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+       let okAction = UIAlertAction.init(title: "OK", style: .default) { (UIActionAlert) in
+           action()
+       }
+       alert.addAction(okAction)
+       DispatchQueue.main.async {
+           vc.present(alert, animated: true, completion: nil)
+       }
+
+   }
+
 }

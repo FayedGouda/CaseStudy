@@ -9,8 +9,8 @@ class GamesVC: UIViewController {
     private weak var emptyErrorLabel:UILabel!
     
     private var viewModel:GamesViewModelProtocol!
-    private var currentPageNumber = 1
     private var gamesCounter:Int = 0
+    private var searchText:String?
     init(viewModel:GamesViewModelProtocol){
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -39,6 +39,16 @@ class GamesVC: UIViewController {
 //            self?.games.isHidden = isLoading
         }
         
+        viewModel.success = { [weak self] isSuccess in
+            guard isSuccess else {
+                AlertView.showBasicAlert(on: self!, with: "Error", message: "Something went wrong") {
+                }
+                return
+            }
+            AlertView.showBasicAlert(on: self!, with: "Success", message: "Action compleated successfulyy") {
+            }
+        }
+        
         viewModel.reloadData = { [weak self] in
             self?.games.reloadData()
         }
@@ -54,7 +64,6 @@ class GamesVC: UIViewController {
         searchBar.placeholder = "Search for the games"
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
-        
         
         games.delegate = self
         games.dataSource = self
@@ -92,7 +101,6 @@ class GamesVC: UIViewController {
         indicator = addIndicatorToViewController()
     }
     
-    
 }
 
 extension GamesVC:UITableViewDelegate{
@@ -106,29 +114,38 @@ extension GamesVC:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-       
-        let favouriteAction = UIContextualAction(style: .normal, title: "Favourite") {
-            (action, sourceView, completionHandler) in
-            
-            self.viewModel.toggleFavouriteGame(at: indexPath)
+        let cellModel = viewModel.cellGame(for: indexPath)
+               
+        var image:UIImage?
+        var title:String?
+        if cellModel.isFavourite{
+            image = UIImage(named: "like")
+            title = "Favorited"
+        }else{
+            image = UIImage(named: "heart")
+            title = "Favorite"
         }
         
-        favouriteAction.backgroundColor = .systemGreen
-        let image = UIImage(named: "heart")
-        favouriteAction.image = image
         
+        let favouriteAction = UIContextualAction(style: .normal, title: title) {
+            (action, sourceView, completionHandler) in
+            self.viewModel.toggleFavouriteGame(at: indexPath)
+            self.games.reloadRows(at: [indexPath], with: .automatic)
+        }
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [favouriteAction])
-        swipeConfiguration.performsFirstActionWithFullSwipe = false
-        
+        swipeConfiguration.performsFirstActionWithFullSwipe = true
+        favouriteAction.backgroundColor = .systemGreen
+        favouriteAction.image = image
         return swipeConfiguration
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if indexPath.row == (self.gamesCounter.count - 1) && self.gamesCounter.count > 8{
-//            self.currentPageNumber += 1
-//
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if viewModel.paginationisAllowed && indexPath.row == gamesCounter - 1 && gamesCounter >= 10{
+            self.viewModel.currentPageNumber += 1
+            guard let searchText else { return }
+            viewModel.searchGames(for: searchText)
+        }
+    }
 
 }
 
@@ -136,7 +153,11 @@ extension GamesVC:UITableViewDelegate{
 extension GamesVC:UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows()
+        let numberOfRows = viewModel.numberOfRows()
+        if viewModel.paginationisAllowed{
+            self.gamesCounter = numberOfRows
+        }
+        return numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -155,24 +176,29 @@ extension GamesVC:UITableViewDataSource{
 extension GamesVC:UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
+            viewModel.paginationisAllowed = false
+            viewModel.currentPageNumber = 1
             viewModel.getGames()
         }else{
-            guard  searchText != "", searchText.count >= 3 else {
-                return }
+            guard searchText != "", searchText.count >= 3 else { return }
+            self.searchText = searchText
             viewModel.searchGames(for: searchText)
         }
+    }
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        viewModel.paginationisAllowed = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.getGames()
     }
-    
-    
+
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         self.view.endEditing(true)
         return false
     }
 }
-
 
 extension GamesVC:ActivityIndicatorProtocol { }

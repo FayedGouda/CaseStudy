@@ -3,6 +3,12 @@ import XCTest
 
 import Foundation
 class MockGamesViewModel:GamesViewModelProtocol{
+    var gamesSearchResult = [GameProtocol]()
+    
+    var paginationisAllowed: Bool = false
+    
+    var currentPageNumber: Int = 1
+    
     
     weak var coordinator: GamesCoordinatorProtocol?
     

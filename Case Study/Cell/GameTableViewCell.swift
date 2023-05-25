@@ -6,7 +6,7 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet private weak var picture:UIImageView!
     @IBOutlet private weak var name:UILabel!
     @IBOutlet private weak var numberOfMetacritic:UILabel!
-    @IBOutlet private weak var details:UILabel!
+    @IBOutlet private weak var geners:UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +28,7 @@ class GameTableViewCell: UITableViewCell {
         self.name.text = model.name
         createAttributedString(for: model.metacritic)
         if let imageURL = model.imageURL{
-//            self.picture.downloadImage(from: imageURL)
+            self.picture.downloadImage(from: imageURL)
         }
         
         if let genres = model.genres, genres.count > 0{
@@ -36,7 +36,7 @@ class GameTableViewCell: UITableViewCell {
                 return $0.name
             }
             let desc = genresList.joined(separator: ", ")
-            self.details.text = desc
+            self.geners.text = desc
         }
     }
     
