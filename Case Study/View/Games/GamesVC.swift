@@ -67,7 +67,10 @@ class GamesVC: UIViewController {
         
         games.delegate = self
         games.dataSource = self
-        games.register(GameTableViewCell.cellNib(), forCellReuseIdentifier: GameTableViewCell.identifier)
+        games.register(GameTableViewCell.self, forCellReuseIdentifier: GameTableViewCell.identifier)
+        games.estimatedRowHeight = UITableView.automaticDimension
+        games.rowHeight = UITableView.automaticDimension
+        games.estimatedRowHeight = 136
     }
     
     private func setUpConstraints(){
@@ -109,10 +112,10 @@ extension GamesVC:UITableViewDelegate{
         viewModel.didSelectRow(at: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 136
-    }
-    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 136
+//    }
+//
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let cellModel = viewModel.cellGame(for: indexPath)
                

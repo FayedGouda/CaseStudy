@@ -64,7 +64,7 @@ class FavouriteVC: UIViewController {
         favourites.delegate = self
         favourites.dataSource = self
         favourites.bounces = false
-        favourites.register(GameTableViewCell.cellNib(), forCellReuseIdentifier: GameTableViewCell.identifier)
+        favourites.register(GameTableViewCell.self, forCellReuseIdentifier: GameTableViewCell.identifier)
         
         deleteAccountHelper = DeleteHelper(self)
         deleteAccountHelper.delegate = self

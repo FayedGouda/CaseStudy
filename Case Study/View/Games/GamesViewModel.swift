@@ -81,7 +81,11 @@ extension GamesViewModelProtocol{
     }
     
     func didSelectRow(at indexPath:IndexPath){
-        coordinator?.gameDetails(for: self.games[indexPath.row])
+        if paginationisAllowed{
+            coordinator?.gameDetails(for: self.gamesSearchResult[indexPath.row])
+        }else{
+            coordinator?.gameDetails(for: self.games[indexPath.row])
+        }
     }
     
     /// Search for names matching of games, first search localy in the our loaded games, if no matches then we search online

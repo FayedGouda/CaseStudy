@@ -33,7 +33,7 @@ class GameDetailsViewModel{
     init(game: GameProtocol, apiService:GamesAPIServiceProtocol) {
         self.game = game
         self.apiService = apiService
-        getGameDetails()
+//        getGameDetails()
     }
     
     /// Get game details for current game

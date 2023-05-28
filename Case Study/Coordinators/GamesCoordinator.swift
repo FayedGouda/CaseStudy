@@ -8,8 +8,7 @@ protocol GamesCoordinatorProtocol:Coordinator{
 extension GamesCoordinatorProtocol{
     func gameDetails(for game:GameProtocol){
         let viewModel = GameDetailsViewModel(game: game, apiService: GamesAPIService())
-        let storyboard = UIStoryboard(name: "GameDetails", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "GameDetailsVC") as! GameDetailsVC
+        let vc = GameDetailsVC(viewModel: viewModel)
         vc.viewModel = viewModel
         navigationController.pushViewController(vc, animated: true)
     }

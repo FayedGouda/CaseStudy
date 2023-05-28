@@ -20,7 +20,7 @@ class GamesVCTests: XCTestCase {
         
         viewController = GamesVC(viewModel: viewModel)
         self.tableView = UITableView()
-        tableView.register(GameTableViewCell.cellNib(), forCellReuseIdentifier: GameTableViewCell.identifier)
+        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: GameTableViewCell.identifier)
     }
     override func tearDown() {
         viewModel = nil
