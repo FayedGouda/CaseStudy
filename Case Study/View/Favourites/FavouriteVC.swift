@@ -46,10 +46,12 @@ class FavouriteVC: UIViewController {
         }
         
         viewModel.reloadData = { [weak self] in
+            self?.title! += "(\(self!.viewModel!.numberOfRows()))"
             self?.favourites.reloadData()
         }
         
         viewModel.empty = { [weak self ] isEmpty in
+            self?.title = "Favourites"
             self?.emptyErrorLabel.isHidden = !isEmpty
             self?.emptyErrorLabel.text = "There is no favourites found."
             self?.favourites.isHidden = isEmpty

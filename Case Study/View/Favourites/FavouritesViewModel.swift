@@ -20,7 +20,7 @@ class FavouritesViewModel:GamesViewModelProtocol{
     
     var empty: (Bool) -> Void = {_ in }
     
-    var coordinator: GamesCoordinatorProtocol?
+    weak var coordinator: GamesCoordinatorProtocol?
     
     internal var apiService: GamesAPIServiceProtocol
     

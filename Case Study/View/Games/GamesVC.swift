@@ -11,6 +11,8 @@ class GamesVC: UIViewController {
     private var viewModel:GamesViewModelProtocol!
     private var gamesCounter:Int = 0
     private var searchText:String?
+    
+    private var openedGamesSet : IndexSet = []
     init(viewModel:GamesViewModelProtocol){
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -96,7 +98,6 @@ class GamesVC: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
-        tableView.allowsMultipleSelection = true
         tableView.bounces = false
         self.games = tableView
         
@@ -108,14 +109,15 @@ class GamesVC: UIViewController {
 
 extension GamesVC:UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if !(openedGamesSet.contains(indexPath.row)){
+            openedGamesSet.insert(indexPath.row)
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         viewModel.games[indexPath.row].isSelected = true
         viewModel.didSelectRow(at: indexPath)
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 136
-//    }
-//
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let cellModel = viewModel.cellGame(for: indexPath)
                
@@ -166,10 +168,13 @@ extension GamesVC:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GameTableViewCell.identifier) as! GameTableViewCell
         let cellModel = self.viewModel.cellGame(for: indexPath)
-        if cellModel.isSelected{
+
+        if openedGamesSet.contains(indexPath.row) {
             cell.backgroundColor = .SelectedGameCell
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        } else {
+            cell.backgroundColor = .white
         }
+        
         cell.injectCell(with: cellModel)
         cell.selectionStyle = .none
         return cell
