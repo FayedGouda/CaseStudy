@@ -6,7 +6,7 @@ protocol AlertSheetHelperDelegate:AnyObject{
 }
 
 /// Alert sheet to ask user if he is sure to remove a game from favourites.
-class DeleteHelper{
+class AlertSheetHelper{
     
     /// UIViewController where our alert sheet will be shown
     private var viewController:UIViewController!

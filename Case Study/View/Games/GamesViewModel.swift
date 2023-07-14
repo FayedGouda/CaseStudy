@@ -128,16 +128,11 @@ extension GamesViewModelProtocol{
             self?.loading(false)
             switch result{
             case .success(let games):
-                guard var results = games.games, results.count > 0 else {
+                guard let results = games.games, results.count > 0 else {
                     self?.empty(true)
                     return
                 }
-                //Here we check if fetched games are favorites or not
-                //Of course its not the best soluations, this is done as favourite games are stored client-side
-                //It would be easy if a game has a property isFavourite to
-                for count in 0...results.count - 1{
-                    results[count].isFavourite = LocalFavourites.shared.search(for: results[count]).0
-                }
+                
                 self?.games = results
                 self?.reloadData()
             case .failure(let error):

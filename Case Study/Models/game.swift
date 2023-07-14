@@ -70,23 +70,3 @@ protocol GameProtocol: Codable{
     var isSelected:Bool { get set }
             
 }
-//
-//extension GameProtocol{
-//    var isFavourite:Bool?{
-//        get {
-//            return false
-//        }
-//        set {
-//            self.isFavourite = newValue
-//        }
-//    }
-//    var isSelected:Bool?{
-//        get {
-//            return false
-//        }
-//        set {
-//            self.isSelected = newValue
-//        }
-//    }
-//
-//}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18E7CF4D2A61038000C4A887 /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7CF4C2A61038000C4A887 /* UITableViewCell+Extensions.swift */; };
 		340068392A1BBB64008911E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340068382A1BBB64008911E2 /* AppDelegate.swift */; };
 		340068422A1BBB65008911E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 340068412A1BBB65008911E2 /* Assets.xcassets */; };
 		340068452A1BBB65008911E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340068432A1BBB65008911E2 /* LaunchScreen.storyboard */; };
@@ -27,7 +28,6 @@
 		3443E9B42A1BD39B0002629D /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9B32A1BD39B0002629D /* Config.swift */; };
 		3443E9B52A1BD3E60002629D /* GamesNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9AB2A1BD0F60002629D /* GamesNetworking.swift */; };
 		3443E9B92A1BD51C0002629D /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9B72A1BD51C0002629D /* GameTableViewCell.swift */; };
-		3443E9C62A1BD82C0002629D /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9C32A1BD8200002629D /* UITableViewCell+Extensions.swift */; };
 		3443E9C92A1BDCAF0002629D /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9C82A1BDCAF0002629D /* ActivityIndicator.swift */; };
 		3443E9CC2A1BECA50002629D /* GameDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9CB2A1BECA50002629D /* GameDetailsVC.swift */; };
 		3443E9CE2A1BECB60002629D /* GameDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443E9CD2A1BECB60002629D /* GameDetailsViewModel.swift */; };
@@ -58,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18E7CF4C2A61038000C4A887 /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		340068352A1BBB64008911E2 /* Case Study.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Case Study.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		340068382A1BBB64008911E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		340068412A1BBB65008911E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		3443E9B32A1BD39B0002629D /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		3443E9B72A1BD51C0002629D /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		3443E9BF2A1BD8200002629D /* UIColor+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extenstions.swift"; sourceTree = "<group>"; };
-		3443E9C32A1BD8200002629D /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		3443E9C82A1BDCAF0002629D /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		3443E9CB2A1BECA50002629D /* GameDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsVC.swift; sourceTree = "<group>"; };
 		3443E9CD2A1BECB60002629D /* GameDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -245,8 +245,8 @@
 		3443E9BB2A1BD8200002629D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				18E7CF4C2A61038000C4A887 /* UITableViewCell+Extensions.swift */,
 				3443E9BF2A1BD8200002629D /* UIColor+Extenstions.swift */,
-				3443E9C32A1BD8200002629D /* UITableViewCell+Extensions.swift */,
 				34575DB62A1D0B820097ADF2 /* UIImageView+Extenstions.swift */,
 			);
 			path = Extensions;
@@ -448,10 +448,10 @@
 				3443E9B52A1BD3E60002629D /* GamesNetworking.swift in Sources */,
 				3443E9D62A1C1DD40002629D /* game_details.swift in Sources */,
 				3443E9B02A1BD16E0002629D /* HttpMethod.swift in Sources */,
-				3443E9C62A1BD82C0002629D /* UITableViewCell+Extensions.swift in Sources */,
 				3443E9B22A1BD3300002629D /* GamesAPIServiceProtocol.swift in Sources */,
 				3443E99C2A1BC2470002629D /* FavouriteVC.swift in Sources */,
 				34575DB72A1D0B820097ADF2 /* UIImageView+Extenstions.swift in Sources */,
+				18E7CF4D2A61038000C4A887 /* UITableViewCell+Extensions.swift in Sources */,
 				3443E9992A1BC2020002629D /* FavouritesCoordinator.swift in Sources */,
 				3443E99E2A1BC2B30002629D /* FavouritesViewModel.swift in Sources */,
 				3443E9972A1BC1E60002629D /* GamesCoordinator.swift in Sources */,
@@ -621,9 +621,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S8N3FKQG78;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Case Study/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -638,6 +638,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fayedgouda.constraints.Case-Study";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -649,9 +650,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S8N3FKQG78;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Case Study/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -666,6 +667,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.fayedgouda.constraints.Case-Study";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

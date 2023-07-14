@@ -118,32 +118,6 @@ extension GamesVC:UITableViewDelegate{
         viewModel.didSelectRow(at: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let cellModel = viewModel.cellGame(for: indexPath)
-               
-        var image:UIImage?
-        var title:String?
-        if cellModel.isFavourite{
-            image = UIImage(named: "like")
-            title = "Favorited"
-        }else{
-            image = UIImage(named: "heart")
-            title = "Favorite"
-        }
-        
-        
-        let favouriteAction = UIContextualAction(style: .normal, title: title) {
-            (action, sourceView, completionHandler) in
-            self.viewModel.toggleFavouriteGame(at: indexPath)
-            self.games.reloadRows(at: [indexPath], with: .automatic)
-        }
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [favouriteAction])
-        swipeConfiguration.performsFirstActionWithFullSwipe = true
-        favouriteAction.backgroundColor = .systemGreen
-        favouriteAction.image = image
-        return swipeConfiguration
-    }
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if viewModel.paginationisAllowed && indexPath.row == gamesCounter - 1 && gamesCounter >= 10{
             self.viewModel.currentPageNumber += 1

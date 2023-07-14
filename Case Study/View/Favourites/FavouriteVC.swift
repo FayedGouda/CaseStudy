@@ -5,12 +5,27 @@ import UIKit
 class FavouriteVC: UIViewController {
     
     private weak var favourites:UITableView!
-    private weak var emptyErrorLabel:UILabel!
+    private lazy var emptyErrorLabel:UILabel = {
+        //MARK: - Error Label
+        let lbl = UILabel(frame: .zero)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(lbl)
+        
+        lbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
+        lbl.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.555).isActive = true
+        lbl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
+        lbl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
+        lbl.isHidden = true
+        lbl.textAlignment = .center
+        lbl.font = .systemFont(ofSize: 20)
+        return lbl
+    }()
+    
     private weak var indicator:UIActivityIndicatorView!
     
     private var viewModel:GamesViewModelProtocol!
     
-    private var deleteAccountHelper:DeleteHelper!
+    private var deleteAccountHelper:AlertSheetHelper!
     
     private var swipedCellIndexPath:IndexPath?
     
@@ -68,12 +83,11 @@ class FavouriteVC: UIViewController {
         favourites.bounces = false
         favourites.register(GameTableViewCell.self, forCellReuseIdentifier: GameTableViewCell.identifier)
         
-        deleteAccountHelper = DeleteHelper(self)
+        deleteAccountHelper = AlertSheetHelper(self)
         deleteAccountHelper.delegate = self
     }
     
     private func setUpConstraints(){
-        
         //MARK: - games
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,24 +101,7 @@ class FavouriteVC: UIViewController {
         
         //MARK: - indicator
         indicator = addIndicatorToViewController()
-        
-        //MARK: - Error Label
-        
-        let lbl = UILabel(frame: .zero)
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(lbl)
-        
-        lbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
-        lbl.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.555).isActive = true
-        lbl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
-        lbl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
-        
-        lbl.textAlignment = .center
-        lbl.font = .systemFont(ofSize: 20)
-        self.emptyErrorLabel = lbl
     }
-    
-    
 }
 
 extension FavouriteVC:UITableViewDelegate{

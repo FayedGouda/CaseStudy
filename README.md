@@ -15,9 +15,8 @@
 ### 3-Singletone design pattern is used also in many cases in which we need only one shared instance
 
 # NOTE!:
-### 1-Favourites are saved localy in user defaults.
+### 1-Favourites are saved ßlocaly in user defaults.
 ### 2-When app launches for first time, there are no favourite games (which makes sence)
-### 3-To add a game to your local favourites, In games tap swipe cell to leading and press favourite (with heart icon)
 
 # Documentation
 # How did you decide to use that design and architectural patterns?
