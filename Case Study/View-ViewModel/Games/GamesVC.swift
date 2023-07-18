@@ -6,7 +6,7 @@ class GamesVC: UIViewController {
     private weak var searchBar:UISearchBar!
     private weak var games:UITableView!
     private weak var indicator:UIActivityIndicatorView!
-    private weak var emptyErrorLabel:UILabel!
+//    private weak var emptyErrorLabel:UILabel!
     
     private var viewModel:GamesViewModelProtocol!
     private var gamesCounter:Int = 0
@@ -127,7 +127,6 @@ extension GamesVC:UITableViewDelegate{
     }
 
 }
-
 
 extension GamesVC:UITableViewDataSource{
     

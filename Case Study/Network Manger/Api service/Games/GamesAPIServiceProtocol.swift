@@ -49,8 +49,9 @@ class GamesAPIService:NetworkManger<GamesNetworking>, GamesAPIServiceProtocol{
     }
     
     func details(id: Int, completion: @escaping(Result<GameDetails, Error>) -> Void){
-        request(for: .details(id: id)) { result in
-            completion(result)
-        }
+        completion(.success(LocalJSON.shared.loadGameDetails()!))
+//        request(for: .details(id: id)) { result in
+//            completion(result)
+//        }
     }
 }

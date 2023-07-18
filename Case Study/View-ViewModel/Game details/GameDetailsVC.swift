@@ -56,9 +56,9 @@ class GameDetailsVC: UIViewController {
     /// Bind this UIViewController to its ViewModel
     private func bindData(){
         
-        viewModel.loading = { [weak self ] isLoading in
-            self?.indicator.showIndicator(isLoading)
-            self?.scrollView.isHidden = isLoading
+        viewModel.loading = { [unowned self ] isLoading in
+            self.indicator.showIndicator(isLoading)
+            self.scrollView.isHidden = isLoading
         }
         
         viewModel.loadGameDetails = {
@@ -68,11 +68,11 @@ class GameDetailsVC: UIViewController {
             self?.setImage(for: details.imageURL)
         }
         
-        viewModel.success = { [weak self ] isSuccess in
+        viewModel.success = { [unowned self ] isSuccess in
             guard isSuccess else { return }
-            let title = self?.favouriteState.toggleFavouriteButton()
-            self?.toggleFavouriteButton.title = title
-            self?.toggleFavouriteButton.isEnabled = true
+            let title = self.favouriteState.toggleFavouriteButton()
+            self.toggleFavouriteButton.title = title
+            self.toggleFavouriteButton.isEnabled = true
         }
     }
     
