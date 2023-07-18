@@ -31,10 +31,10 @@ protocol GamesAPIServiceProtocol{
 class GamesAPIService:NetworkManger<GamesNetworking>, GamesAPIServiceProtocol{
    
     func getGames(params: JSON?, completion: @escaping(Result<MainResponse, Error>) -> Void){
-        completion(.success(LocalJSON.shared.loadGames()!))
-//        request(for: .getGames, parameters: params) { result in
-//            completion(result)
-//        }
+//        completion(.success(LocalJSON.shared.loadGames()!))
+        request(for: .getGames, parameters: params) { result in
+            completion(result)
+        }
     }
     
     func search(params: JSON?, completion: @escaping(Result<MainResponse, Error>) -> Void){
@@ -49,9 +49,9 @@ class GamesAPIService:NetworkManger<GamesNetworking>, GamesAPIServiceProtocol{
     }
     
     func details(id: Int, completion: @escaping(Result<GameDetails, Error>) -> Void){
-        completion(.success(LocalJSON.shared.loadGameDetails()!))
-//        request(for: .details(id: id)) { result in
-//            completion(result)
-//        }
+//        completion(.success(LocalJSON.shared.loadGameDetails()!))
+        request(for: .details(id: id)) { result in
+            completion(result)
+        }
     }
 }
